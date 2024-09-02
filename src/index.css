@@ -1,3 +1,40 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CustomScrollbar.css */
+.scrollable-container {
+  position: relative;
+  width: 611px;
+  height: 175px;
+  overflow: hidden; /* Hide the default scrollbar */
+}
+
+.scrollable-content {
+  height: 100%;
+  width: 100%;
+  overflow-y: scroll; /* Enable custom scrollbar */
+}
+
+/* Custom scrollbar for WebKit browsers (Chrome, Safari) */
+.scrollable-content::-webkit-scrollbar {
+  width: 8px; /* Width of the scrollbar */
+}
+
+.scrollable-content::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+}
+
+.scrollable-content::-webkit-scrollbar-thumb {
+  background: gray; /* Scrollbar color */
+  border-radius: 10px; /* Rounded corners for the scrollbar thumb */
+}
+
+.scrollable-content::-webkit-scrollbar-thumb:hover {
+  background: darkgray; /* Darker color on hover */
+}
+
+/* Hide scrollbar arrows (WebKit browsers) */
+.scrollable-content::-webkit-scrollbar-button {
+  display: none; /* Remove arrows/buttons */
+}

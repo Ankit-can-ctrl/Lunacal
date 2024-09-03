@@ -3,11 +3,13 @@ import icons from "../assets/left-icon.svg";
 import newImage from "../assets/image.png";
 
 function NewLower() {
+  const [dummyImages, setDummyImages] = useState(
+    Array.from({ length: 9 }, () => newImage)
+  );
   const [currentPage, setCurrentPage] = useState(1);
   const [swipeDirection, setSwipeDirection] = useState("");
   const imagesPerPage = 3;
   const imageGap = 8; // Gap between images
-  const dummyImages = Array.from({ length: 9 }, () => newImage);
   const totalImages = dummyImages.length;
   const totalPages = Math.ceil(totalImages / imagesPerPage);
 
@@ -42,6 +44,17 @@ function NewLower() {
     });
   };
 
+  const handleAddImage = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setDummyImages((prevImages) => [...prevImages, reader.result]);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <div className="bg-[#363c43] p-4 rounded-2xl shadow-dark-bottom-right w-[720px] h-[330px] flex gap-5">
       <div className="left-icons">
@@ -55,12 +68,18 @@ function NewLower() {
             </button>
           </div>
           <div className="flex items-center text-white gap-5">
-            <button className="bg-gray-600 shadow-[5px_5px_10px_rgba(0,0,0,0.7),-2px_-1px_10px_rgba(209,213,219,0.5)] text-white w-[131px] h-[46px] rounded-full flex items-center font-semibold justify-center">
+            <label className="bg-gray-600 shadow-[5px_5px_10px_rgba(0,0,0,0.7),-2px_-1px_10px_rgba(209,213,219,0.5)] text-white w-[131px] h-[46px] rounded-full flex items-center font-semibold justify-center cursor-pointer">
               <span>+</span> ADD IMAGE
-            </button>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleAddImage}
+                className="hidden"
+              />
+            </label>
             <button
               onClick={prevPage}
-              className="bg-gray-800 p-3 text-xl rounded-full shadow-[5px_5px_10px_rgba(0,0,0,0.7),-2px_-1px_10px_rgba(209,213,219,0.5)]"
+              className="bg-gray-800 p-3 text-xl active:bg-gray-400 rounded-full shadow-[5px_5px_10px_rgba(0,0,0,0.7),-2px_-1px_10px_rgba(209,213,219,0.5)]"
               aria-label="Previous Page"
             >
               <svg
@@ -77,7 +96,7 @@ function NewLower() {
             </button>
             <button
               onClick={nextPage}
-              className="bg-gray-800 p-3 text-xl rounded-full shadow-[5px_5px_10px_rgba(0,0,0,0.7),-2px_-1px_10px_rgba(209,213,219,0.5)]"
+              className="bg-gray-800 p-3 text-xl rounded-full active:bg-gray-400 shadow-[5px_5px_10px_rgba(0,0,0,0.7),-2px_-1px_10px_rgba(209,213,219,0.5)]"
               aria-label="Next Page"
             >
               <svg
@@ -108,25 +127,22 @@ function NewLower() {
               .map((src, index) => (
                 <div
                   key={index}
-                  className="inline-block group" // Added group class for hover effect
+                  className="inline-block group"
                   style={{
                     width: `calc(100% / ${imagesPerPage} - ${imageGap}px)`,
                   }}
                 >
                   <div
-                    className="aspect-square rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:rotate-[-30deg] group-hover:filter group-hover:invert group-hover:sepia group-hover:opacity-100 group-hover:brightness-110 group-hover:contrast-110"
+                    className="aspect-square rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:rotate-[-10deg] group-hover:scale-105 group-hover:filter group-hover:invert group-hover:sepia group-hover:opacity-100 group-hover:brightness-110 group-hover:contrast-110"
                     style={{
                       marginRight: `${imageGap}px`,
-                      transformOrigin: "bottom left", // Set the origin to bottom left
+                      transformOrigin: "bottom left",
                     }}
                   >
                     <img
                       src={src}
-                      alt={`Gallery item ${index + 1}`}
-                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:rotate-[-5deg] group-hover:filter group-hover:invert group-hover:sepia group-hover:opacity- group-hover:brightness-110 group-hover:contrast-110"
-                      style={{
-                        transformOrigin: "bottom left", // Set the origin to bottom left
-                      }}
+                      alt={`Gallery Image ${index}`}
+                      className="w-full h-full object-cover"
                     />
                   </div>
                 </div>

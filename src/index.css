@@ -38,3 +38,8 @@
 .scrollable-content::-webkit-scrollbar-button {
   display: none; /* Remove arrows/buttons */
 }
+
+/* swipe */
+.transition-transform {
+  transition: transform 0.5s ease-in-out;
+}

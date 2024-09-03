@@ -1,4 +1,5 @@
 import LowerWidget from "./components/LowerWidget";
+import NewLower from "./components/NewLower";
 import Underline from "./components/Underline";
 import UpperWidget from "./components/UpperWidget";
 
@@ -11,8 +12,9 @@ function App() {
           <UpperWidget />
           <Underline />
         </div>
-        <div className="lower">
-          <LowerWidget />
+        <div className="lower flex flex-col items-center gap-4 justify-start">
+          <NewLower />
+          <Underline />
         </div>
       </div>
     </div>

@@ -108,19 +108,25 @@ function NewLower() {
               .map((src, index) => (
                 <div
                   key={index}
-                  className="inline-block"
+                  className="inline-block group" // Added group class for hover effect
                   style={{
                     width: `calc(100% / ${imagesPerPage} - ${imageGap}px)`,
                   }}
                 >
                   <div
-                    className="aspect-square rounded-lg overflow-hidden"
-                    style={{ marginRight: `${imageGap}px` }}
+                    className="aspect-square rounded-lg overflow-hidden transition-transform duration-300 ease-in-out group-hover:rotate-[-30deg] group-hover:filter group-hover:invert group-hover:sepia group-hover:opacity-100 group-hover:brightness-110 group-hover:contrast-110"
+                    style={{
+                      marginRight: `${imageGap}px`,
+                      transformOrigin: "bottom left", // Set the origin to bottom left
+                    }}
                   >
                     <img
                       src={src}
                       alt={`Gallery item ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover transition-transform duration-300 ease-in-out group-hover:rotate-[-5deg] group-hover:filter group-hover:invert group-hover:sepia group-hover:opacity- group-hover:brightness-110 group-hover:contrast-110"
+                      style={{
+                        transformOrigin: "bottom left", // Set the origin to bottom left
+                      }}
                     />
                   </div>
                 </div>
